@@ -38,7 +38,7 @@ const car = Bodies.rectangle(400, 300, carWidth, carHeight, {
     friction: 0.02, // Трение
     render: {
         sprite: {
-            texture: 'https://github.com/eledays/pyCarDemo/blob/main/assets/car.png', 
+            texture: 'https://github.com/eledays/pyCarDemo/blob/main/assets/car.png?raw=true', 
             xScale: carWidth / 100,
             yScale: carHeight / 50,
         },
