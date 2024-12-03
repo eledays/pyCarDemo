@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pyCar</title>
+
+    <!-- CodeMirror -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
+    <link rel="stylesheet" href="css/codemirror-theme.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/hint/show-hint.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/hint/show-hint.min.css">
+
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <div class="loading_block">
+        <p>Загрузка...</p>
+    </div>
+
+    <div class="code">
+        <textarea id="codeEditor"></textarea>
+        <p id="output"></p>
+        <div class="btn_field">
+            <button id="sendButton">Запустить</button>
+        </div>
+    </div>
+
+    <script>
+    basePythonCode = `
+import asyncio
+import math
+
+
+class Car:
+
+    def __init__(self):
+        self.power = 0
+        self.engine_started = False
+        self.wheel_angle = 0
+
+        self.error = None
+
+    def engine_start(self):
+        self.engine_started = True
+
+    def set_power(self, power: int):
+        if abs(power) <= 1:
+            self.power = power
+        else:
+            raise Exception('Мощность должна быть в диапазоне от -1 до 1')
+            
+    def rotate(self, deg):
+        if abs(deg) <= 30:
+            self.wheel_angle = deg * math.pi / 180
+        else:
+            raise Exception('Угол поворота должен быть в диапазоне от -30 до 30 градусов')
+
+
+async def sleep(seconds):
+    await asyncio.sleep(seconds)
+    return True
+
+
+car = Car()
+`;
+        baseCodeEditorText = `# https://github.com/eledays/pyCarDemo
+
+# Привет!
+
+# Это демо-версия игры pyCar - нет уровней, зато устанавливать ничего не нужно
+# Полная версия - https://github.com/eledays/pyCar
+
+# Базовые возможности:
+
+# Запуск двигателя
+car.engine_start()
+
+# Задать мощность двигателя (от 0 до 1)
+car.set_power(0.5)
+
+# Задать угол поворота передних колёс в градусах (от -30 до 30)
+car.rotate(0)
+
+# Пауза (в секундах)
+sleep(1)
+car.set_power(0)
+`;
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/hint/show-hint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/hint/python-hint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/edit/closebrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/hint/show-hint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/hint/python-hint.min.js"></script>
+    
+    <script src="js/codeEditor.js"></script>
+
+    <script src="libs/matter-js/build/matter.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
